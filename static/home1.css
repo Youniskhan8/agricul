@@ -8,10 +8,10 @@
     box-sizing: border-box;
 }
 
-/* .body {
+.body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     border: 1px solid green;
-} */
+}
 
 .nav-bar {
     height: 70px;
@@ -57,7 +57,7 @@
 }
 
 .nav-right a:hover {
-    color: var(green);
+    color: #28a745;
 }
 
 .hero {
@@ -310,7 +310,7 @@
    }
 
     .graph-card {
-        height: 300px;
+        height: auto;
     }
 
     canvas {
@@ -325,7 +325,39 @@
     /* margin:1rem; */
 
 }
-
+.graph-card h2{
+    text-align: center;
+    padding:1rem;
+    color:#28a745;
+}
+.graph-card div{
+    padding:1rem;
+    /* background-color: red; */
+}
+.graph-card p{
+    color:white;
+    font-size: large;
+    font-weight: bold;
+    padding:1rem;
+    line-height: 2rem;
+    /* background-color: pink; */
+}
+.price-trend ul{
+    list-style: none;
+    font-size: large;
+    text-align: center;
+    color:white;
+    font-weight: bold;
+}
+.price-trend ul li{
+    padding:1rem;
+}
+.graph-card div:hover p,
+.graph-card div:hover ul{
+    transform: scale(1.05) translate3d(0, -5px,10px );
+    color: #28a745;
+    transition: all .6s ease-in-out;
+}
 .graph-info {
     background-color: whitesmoke;
     /* margin: 1rem; */
