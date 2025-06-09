@@ -39,11 +39,16 @@ class Sales(db.Model):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
 
 # === Load ML Model and Dataset ===
-if os.path.exists("model.pkl"):
-    with open("model.pkl", "rb") as model_file:
-        model = pickle.load(model_file)
-else:
-    model = None
+MODEL_PATH = "model.pkl"
+GOOGLE_DRIVE_FILE_ID = "1lVg8_ue8e9B-0m8oeuTMeXt0MWoVJERa"   # Replace this
+
+if not os.path.exists(MODEL_PATH):
+    url = f"https://drive.google.com/uc?id={GOOGLE_DRIVE_FILE_ID}"
+    print("Downloading model.pkl from Google Drive...")
+    gdown.download(url, MODEL_PATH, quiet=False)
+
+with open(MODEL_PATH, "rb") as model_file:
+    model = pickle.load(model_file)
 
 with open("label_encoders.pkl", "rb") as le_file:
     le_dict = pickle.load(le_file)
