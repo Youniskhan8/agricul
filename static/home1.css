@@ -1,0 +1,563 @@
+:root {
+    --green: #28a745;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* .body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid green;
+} */
+
+.nav-bar {
+    height: 70px;
+    width: 100%;
+    background-color: whitesmoke;
+    display: flex;
+    /* flex-direction: row; */
+    position: fixed;
+    top: 0px;
+    z-index: 1000;
+}
+
+.nav-left {
+    width: 30%;
+    /* background-color: pink; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-left h3 {
+    color: #2E312E;
+    /* background-color: aqua; */
+    font-weight: bold;
+    font-size: 2rem;
+    font-style: normal;
+}
+
+.nav-right {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    /* vertically */
+    justify-content: space-evenly;
+}
+
+.nav-right a {
+    text-decoration: none;
+    padding: 1rem;
+    color: #2E312E;
+    font-size: 1rem;
+}
+
+.nav-right a:hover {
+    color: var(green);
+}
+
+.hero {
+    margin-top: 70px;
+}
+
+.carousel-inner {
+    height: 600px;
+    position: relative;
+}
+
+.carousel-item {
+    height: 100%;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100% !important;
+    max-height: 600px;
+    object-fit: cover !important;
+    display: block;
+}
+
+.carousel-caption {
+    position: absolute;
+    top: 60px;
+    left: 30px;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 180px;
+}
+
+.first-para {
+    font-size: 3rem;
+    font-weight: bolder;
+    color: whitesmoke;
+    letter-spacing: 2px;
+}
+
+.sec-para {
+    font-size: 1.2rem;
+    color: whitesmoke;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    text-decoration: none;
+    margin-top: 3rem;
+    padding: 1rem;
+    border: 1px solid #28a745;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    background-color: #28a745;
+}
+
+/* responsive navbar */
+.hamburger {
+    display: none;
+    /*hamburger doesnt display*/
+    border: none;
+    font-size: 2rem;
+    background: none;
+    cursor: pointer;
+    color: #2E312E;
+    padding: 1rem;
+}
+
+
+
+/* .hero {
+    margin-top: 70px;
+    height: 600px;
+    width: 100%;
+    background-color: cadetblue;
+    background-image: url('images/agriimg1.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.hero-content {
+    padding: 7rem;
+    border:2px solid red;
+}
+
+.first-para {
+    font-size: 3rem;
+    font-weight: bolder;
+    color: whitesmoke;
+    letter-spacing: 2px;
+}
+
+.sec-para {
+    font-size: 1.2rem;
+    color: whitesmoke;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.btn {
+    text-decoration: none;
+    margin-top: 3rem; 
+    padding: 1rem;
+    border: 1px solid #28a745;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    background-color: #28a745;
+} */
+
+
+/* end of carousel of hero section */
+
+.ist-container {
+    min-height: 400px;
+    width: 100%;
+    /* background-color: cadetblue; */
+    margin-top: 3px;
+    /* display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap:2px; */
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 3fr 4fr;
+    gap: 1rem;
+
+}
+
+.istcard {
+    /* background-color:#564234; */
+    /* background-color: #4A340D; */
+    background-color: #4A4300;
+    box-sizing: border-box;
+    /* height: 350px;
+    width:400px; */
+    text-align: center;
+}
+
+.istcard h3 {
+    font-size: x-large;
+    letter-spacing: .2rem;
+    color: white;
+    font-weight: bolder;
+    padding: 2rem;
+}
+
+.weather-info p {
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
+
+}
+
+#weather-card:hover h3,
+#weather-card:hover p {
+    color: #28a745;
+    transform: scale(1.05) translate3d(0, -5px, 10px);
+    transition: transform 0.3s ease-in-out, color .3s ease;
+
+}
+
+.weather-detail {
+    background-color: #F5F5F5;
+    text-align: center;
+    /* height: 350px;
+    width:400px; */
+    box-sizing: border-box;
+}
+
+.weather-detail h3 {
+    padding: 1.5rem;
+    color: #28a745;
+    font-weight: bold;
+}
+
+.weather-detail p {
+    color: #2E312E;
+    font-size: large;
+}
+
+/* .weather-detail h3,
+.weather-detail p {
+  transition: all 0.3s ease;
+} */
+
+.weather-detail div:hover h3,
+.weather-detail div:hover p {
+    transform: scale(1.05);
+    color: #28a745;
+    transition: all .3s ease;
+}
+
+/* responsive ist container */
+@media(max-width:768px) {
+    .ist-container {
+        grid-template-columns: 1fr;
+        /*vertically one coloumn*/
+    }
+
+}
+
+.sec-title {
+    height: 60px;
+    width: 100%;
+    text-align: center;
+    padding-top: .5rem;
+    font-size: 2rem;
+    background-color: whitesmoke;
+    color: #28a745;
+}
+
+.sec-title:hover h3 {
+    transform: translate3d(0, -3px, 10px);
+    transition: transform .3s ease-in-out;
+}
+
+.sec-container {
+    min-height: 600px;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 4px;
+    /* background-color:#4A340D; */
+    /* background-color: #4A4300; */
+    display: grid;
+    grid-template-columns: 9fr 5fr;
+    gap: 3px;
+    justify-content: center;
+}
+
+ @media(max-width:768px) {
+    .sec-title {
+        font-size: 1rem;
+    }
+
+    .sec-container {
+        grid-template-columns: 1fr;
+
+        align-items: center;
+        /* border:1px solid red; */
+   }
+
+    .graph-card {
+        height: 300px;
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+} 
+
+.graph-card {
+    /* background-color: aquamarine; */
+    background-color: #4A4300;
+    /* margin:1rem; */
+
+}
+
+.graph-info {
+    background-color: whitesmoke;
+    /* margin: 1rem; */
+}
+
+.graph-info h2 {
+    text-align: center;
+    padding: 1rem;
+    /* background-color:#28a745; */
+    color: #28a745;
+}
+
+.graph-btn {
+    margin: 1rem 0;
+}
+
+.graph-btn label,
+.graph-btn select,
+.graph-btn button {
+    padding: .2rem;
+    margin-left: 3px;
+    color: #28a745;
+    /* background-color: darkcyan; */
+}
+
+/* footer */
+.footer {
+    height: 70vh;
+    width: 100%;
+    position: relative;
+    /* background-color: red; */
+    margin-top: .1rem;
+    /* background-image: url('images/footerimg1.avif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain; */
+}
+
+.footer img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    opacity: 0.9;
+    /* 0 = fully transparent, 1 = fully opaque */
+    /* box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);  */
+    filter: brightness(.2);
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.footer-box {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    z-index: 12;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 65vh;
+    border: 1px solid white;
+}
+
+.footer-box div {
+    height: 55vh;
+    width: 300px;
+    /* background-color: aqua; */
+    /* border: 1px solid blue; */
+}
+
+.f-left h2 {
+    color: white;
+    /* background-color: aqua; */
+    font-weight: bold;
+    font-size: 2rem;
+    font-style: normal;
+    padding-top: 3rem;
+}
+
+.f-left p {
+    color: white;
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+    margin-top: 3rem;
+    font-size: 1rem;
+}
+
+.f-left i {
+    color: #28a745;
+    margin: 1rem 0;
+}
+
+.text {
+    margin-left: 1rem;
+    color: white;
+
+}
+
+.f-right h2 {
+    color: white;
+    font-style: normal;
+    padding-top: 3rem;
+    font-size: 1.4rem;
+    margin-bottom: 3rem;
+}
+
+.f-right a {
+    display: block;
+    /*only then a tags obey margin*/
+    text-decoration: none;
+    font-size: 1rem;
+    color: white;
+    padding: .6rem;
+    margin-bottom: 2rem;
+    transition: color 0.3s
+        /* background-color: red; */
+}
+
+.f-right a:hover {
+    color: var(--green);
+}
+@media(max-width:768px) {
+    .hamburger {
+        display: block;
+        margin-left: auto;
+
+    }
+
+    .nav-left {
+        width: 60%;
+
+    }
+
+    .nav-right {
+        display: none;
+        /* its hidden by default on small screens */
+        width: 100%;
+        height: 40px;
+        background-color: whitesmoke;
+        position: absolute;
+        /* flex:1 1 100%; */
+        top: 70px;
+        /* height of nav-bar */
+        left: 0;
+        flex-direction: row;
+        /* justify-content: space-around; */
+        justify-content: space-evenly;
+        padding: 0.2rem 0;
+    }
+
+    .nav-right.show {
+        display: flex;
+    }
+
+    .nav-bar {
+        flex-wrap: wrap;
+    }
+
+    .nav-right a {
+        text-decoration: none;
+        padding: .4rem;
+        color: #2E312E;
+        font-size: .5rem;
+    }
+
+    .carousel-caption {
+        padding-left: 10px;
+        padding-top: 60px;
+    }
+
+    /*font size*/
+    .first-para {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: whitesmoke;
+        /* letter-spacing: 1px; */
+    }
+
+    .sec-para {
+        font-size: 1rem;
+        color: whitesmoke;
+        padding: .5rem;
+        margin-bottom: 1rem;
+    }
+
+    .btn {
+        text-decoration: none;
+        /* margin-top: 3rem;  */
+        padding: .5rem;
+        border: 1px solid #28a745;
+        border-radius: 10px;
+        color: white;
+        font-size: 1rem;
+        background-color: #28a745;
+    }
+   
+    
+}
+
+/* end */
+ @media(max-width:768px) {
+    .footer {
+        height: 50vh;
+        width: 100%;
+    }
+
+    .footer-box {
+        height: 45vh;
+    }
+
+    .f-left p {
+        font-size: .8rem;
+    }
+
+    .f-left i {
+        margin: .6rem 0;
+        font-size: .8rem;
+    }
+
+    .text {
+        font-size: .8rem;
+    }
+
+    .footer-box div {
+        height: 40vh;
+        width: 150px;
+    }
+
+    .f-right a {
+        margin-bottom: 1rem;
+        font-size: .8rem;
+    }
+ } 

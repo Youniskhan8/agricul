@@ -1,0 +1,348 @@
+:root {
+    --green: #28a745;
+    --dark-green: #147e2c;
+    --light-bg: #f9f9f9;
+    --text-color: #2E312E;
+    --white: #ffffff;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+}
+
+.nav-bar {
+    height: 70px;
+    width: 100%;
+    /* background-color: var(--white); */
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 0;
+    box-shadow: var(--box-shadow);
+    z-index: 1000;
+}
+
+.nav-left {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-left h3 {
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.nav-right {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.nav-right a {
+    text-decoration: none;
+    padding: 1rem;
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-right a:hover {
+    color: var(--green);
+}
+/* responsive navbar */
+.hamburger{
+    display:none;
+    border:none;
+    font-size: 2rem;
+    background:none;
+    cursor:pointer;
+    color:#2E312E;
+    padding:1rem;
+}
+@media(max-width:768px){
+    .hamburger{
+        display:block;
+        margin-left:auto;
+    }
+    .nav-left{
+        width:60%;
+        padding-left: 6px;
+    }
+    .nav-right{
+        display:none;
+        width:100%;
+        height:40px;
+        background-color: whitesmoke;
+        position:absolute;
+        top:70px;
+        left:0;
+        flex-direction: row;
+        justify-content: space-evenly;
+        padding:0.5rem 0;
+    }
+    .nav-right.show{
+        display:flex;
+
+    }
+     .nav-right a {
+        text-decoration: none;
+        padding: .4rem;
+        color: #2E312E;
+        font-size: .5rem;
+    }
+    .nav-bar{
+        flex-wrap: wrap;
+    }
+}
+/*end*/
+.hero-sec {
+    margin-top: 70px;
+    height: 80vh;
+    width: 100%;
+    background-color: #e0f0f0;
+    overflow: hidden;
+}
+
+.hero-sec img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+@media (max-width: 768px) {
+    .hero-sec {
+        height: auto; /* auto allows image height to control it */
+    }
+
+    .hero-sec img {
+        object-fit: contain; /* Optional: show full image */
+    }
+}
+.analysis-container {
+   min-height: 50vh;
+    background-color: #e3f0dc;
+}
+
+#heading {
+    margin-top: 0.1rem;
+    text-align: center;
+    padding-top: 0.5rem;
+    height: 60px;
+    width: 100%;
+    font-size: 2rem;
+    background-color: var(--white);
+    color: var(--green);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+#heading:hover h3 {
+    transform: translate3d(0, -3px, 10px);
+    transition: transform 0.3s ease-in-out;
+}
+
+.form-container {
+   min-height: calc(50vh - 60px);
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 1.5rem 2rem;
+    justify-content: center;
+    align-items: stretch;
+    /* background-color: #fdfdfd;  */
+    /* background-color: red; */
+}
+
+.sub-box {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-box:hover label,
+.sub-box:hover select,
+.sub-box:hover input {
+    transform: translateY(-5px) scaleY(1.05);
+    transition: transform 0.3s ease-in-out;
+}
+
+label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: var(--green);
+}
+
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background-color: #fff;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--green);
+}
+
+.result-button {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--green);
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.result-button:hover {
+    background-color: var(--dark-green);
+    cursor: pointer;
+}
+
+.sub-box p {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin: 6px 0;
+    color: var(--green);
+}
+
+.footer {
+    height: 70vh;
+    width: 100%;
+    position: relative;
+    margin-top: 0.1rem;
+    overflow: hidden;
+}
+
+.footer img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    opacity: 0.9;
+    filter: brightness(0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+.footer-box {
+    position: absolute;
+    top: 16px;
+    left: 0;
+    z-index: 12;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 65vh;
+     border: 1px solid white;
+}
+
+.footer-box div {
+    width: 300px;
+    /* padding: 1rem; */
+    height :55vh;
+}
+
+.f-left h2 {
+    color: white;
+    font-weight: bold;
+    font-size: 2rem;
+    /* margin-bottom: 1rem; */
+    padding-top: 3rem;
+    font-style:normal;
+}
+
+.f-left p {
+    color: #ddd;
+    margin-top: 3rem;
+    font-size: 1rem;
+    /* line-height: 1.6; */
+}
+
+.f-left i {
+    color: var(--green);
+    margin: 1rem 0;
+}
+
+.text {
+    margin-left: 1rem;
+    color: white;
+}
+.f-right h2{
+    color:white;
+    font-style: normal;
+    padding-top: 3rem;
+    font-size: 1.4rem;
+    margin-bottom: 3rem;
+}
+
+.f-right a {
+    display: block;
+    text-decoration: none;
+    font-size: 1rem;
+    color: white;
+    padding: 0.6rem 0;
+    margin-bottom: 2rem;
+    transition: color 0.3s;
+}
+
+.f-right a:hover {
+    color: var(--green);
+}
+@media(max-width:768px){
+    .footer{
+        height:50vh;
+        width:100%;
+    }
+    .footer-box{
+        height:45vh;
+    }
+    .f-left p{
+        font-size: .8rem;
+    }
+    .f-left i{
+        margin:.6rem 0;
+        font-size:.8rem;
+    }
+    .text{
+        font-size:.8rem;
+    }
+     .footer-box div{
+        height: 40vh;
+        width:150px;
+    }
+    .f-right a{
+        margin-bottom: 1rem;
+        font-size: .8rem;
+    }
+    #heading{
+        font-size: 1rem;
+    }
+}

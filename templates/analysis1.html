@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>prediction page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{url_for('static',filename='analysis1.css')}}">
+</head>
+
+<body>
+    <nav class="nav-bar">
+        <div class="nav-left">
+            <a href="{{ url_for('home_page') }}" style="text-decoration: none; color: inherit;">
+                <h3>AGRI<span style="color:#28a745">FORECAST</span></h3>
+            </a>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
+        <div class="nav-right">
+            <a href="{{ url_for('home_page') }}" class="nav-link">HOME</a>
+            <a href="{{ url_for('analysis') }}" class="nav-link">PREDICT</a>
+            {% if not session.get('user_id') %}
+                <a href="{{ url_for('login') }}">LOGIN</a>
+            {% else %}
+                <a href="{{ url_for('profile') }}">PROFILE</a>
+                <a href="{{ url_for('sales') }}" class="nav-link">SALES</a>
+                <a href="{{ url_for('logout') }}">LOGOUT</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <section class="hero-sec">
+        <img src="{{url_for('static',filename='images/predictionimage.jpg')}}" alt="">
+    </section>
+
+    <section class="analysis-container">
+        <div id="heading">
+            <h3>Price Prediction Of Commodities</h3>
+        </div>
+        <div class="form-container">
+            <div class="sub-box">
+                <label for="commodity">Commodity:</label>
+                <select id="commodity" onchange="updateVarieties()">
+                    <option value="" disabled selected>Select a commodity</option>
+                    {% for item in dropdowns['commodities'] %}
+                    <option value="{{ item }}">{{ item }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="sub-box">
+                <label for="variety">Variety:</label>
+                <select id="variety" onchange="updateGrades()">
+                    <option value="" disabled selected>Select a variety</option>
+                </select>
+            </div>
+
+            <div class="sub-box">
+                <label for="grade">Grade:</label>
+                <select id="grade">
+                    <option value="" disabled selected>Select a grade</option>
+                </select>
+            </div>
+
+            <div class="sub-box">
+                <label for="district_name">District Name:</label>
+                <select id="district" onchange="updateMarkets()">
+                    <option value="" disabled selected>Select a district</option>
+                    {% for item in dropdowns['districts'] %}
+                    <option value="{{ item }}">{{ item }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="sub-box">
+                <label for="marketname">Market Name:</label>
+                <select id="market">
+                    <option value="" disabled selected>Select a market</option>
+                </select>
+            </div>
+
+            <div class="sub-box">
+                <label for="pricedate">Price Date:</label>
+                <input type="date" id="priceDate">
+            </div>
+
+            <div class="sub-box">
+                <label for="temperature">Temperature:</label>
+                <input type="number" id="temperature" step="0.1">
+            </div>
+
+            <div class="sub-box">
+                 <label>&nbsp;</label>  <!-- empty label for alignment -->
+                <button class="result-button" onclick="predictPrice()">Predict</button>
+            </div>
+
+            <div class="sub-box">
+                <p>Predicted Price:</p>
+                <h4 id="result"></h4>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer">
+        <img src="{{url_for('static',filename='images/footerimg.jpg')}}" alt="">
+        <div class="footer-box">
+            <div class="f-left">
+                <h2>AGRI <span style="color:#28a745">FORECAST</span></h2>
+                <p>A smart solution that brings price clarity to farmers and wholesalers, helping them make better,
+                    profit-driven decisions.</p>
+                <i class="fa-solid fa-message"></i> <span class="text">www.ssmcllg.com</span> <br>
+                <i class="fa-solid fa-map-pin"></i> <span class="text">SSM College of Eng., Parihaspora</span><br>
+                <i class="fa-solid fa-phone"></i><span class="text">+918004563</span>
+            </div>
+            <div class="f-right">
+                <h2>QUICK LINK</h2>
+                <a href="{{ url_for('home_page') }}" class="nav-link">HOME</a>
+                <a href="{{ url_for('analysis') }}" class="nav-link">PREDICT</a>
+                {% if not session.get('user_id') %}
+                    <a href="{{ url_for('login') }}">LOGIN</a>
+                {% else %}
+                    <a href="{{ url_for('profile') }}">PROFILE</a>
+                    <a href="{{ url_for('sales') }}" class="nav-link">SALES</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    <script>
+        function toggleMenu(){
+            document.querySelector('.nav-right').classList.toggle('show')
+        }
+    </script>
+    <script>
+        async function updateVarieties() {
+            const commodity = document.getElementById("commodity").value;
+            if (commodity) {
+                const response = await fetch("/get_options", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ type: "commodity", value: commodity })
+                });
+                const data = await response.json();
+                const varietySelect = document.getElementById("variety");
+                varietySelect.innerHTML = "<option value='' disabled selected>Select a variety</option>";
+                data.options.forEach(option => {
+                    const optionElement = document.createElement("option");
+                    optionElement.value = option;
+                    optionElement.innerText = option;
+                    varietySelect.appendChild(optionElement);
+                });
+
+                // Clear grades if variety list changes
+                document.getElementById("grade").innerHTML = "<option value='' disabled selected>Select a grade</option>";
+            }
+        }
+
+        async function updateGrades() {
+            const commodity = document.getElementById("commodity").value;
+            const variety = document.getElementById("variety").value;
+            if (commodity && variety) {
+                const response = await fetch("/get_options", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        type: "variety",
+                        value: variety,
+                        commodity: commodity // Include commodity for filtering
+                    })
+                });
+                const data = await response.json();
+                const gradeSelect = document.getElementById("grade");
+                gradeSelect.innerHTML = "<option value='' disabled selected>Select a grade</option>";
+                data.options.forEach(option => {
+                    const optionElement = document.createElement("option");
+                    optionElement.value = option;
+                    optionElement.innerText = option;
+                    gradeSelect.appendChild(optionElement);
+                });
+            }
+        }
+
+        async function updateMarkets() {
+            const district = document.getElementById("district").value;
+            if (district) {
+                const response = await fetch("/get_options", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ type: "district", value: district })
+                });
+                const data = await response.json();
+                const marketSelect = document.getElementById("market");
+                marketSelect.innerHTML = "<option value='' disabled selected>Select a market</option>";
+                data.options.forEach(option => {
+                    const optionElement = document.createElement("option");
+                    optionElement.value = option;
+                    optionElement.innerText = option;
+                    marketSelect.appendChild(optionElement);
+                });
+            }
+        }
+
+        async function predictPrice() {
+            const data = {
+                "Commodity": document.getElementById("commodity").value,
+                "Variety": document.getElementById("variety").value,
+                "Grade": document.getElementById("grade").value,
+                "District Name": document.getElementById("district").value,
+                "Market Name": document.getElementById("market").value,
+                "Price Date": document.getElementById("priceDate").value,
+                "Temperature": parseFloat(document.getElementById("temperature").value)
+            };
+
+            const response = await fetch("http://127.0.0.1:5001/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            document.getElementById("result").innerText =
+                result["Predicted Modal Price"]
+                    ? " ₹" + result["Predicted Modal Price"]
+                    : "Error: " + result["error"];
+        }
+    </script>
+</body>
+
+</html>

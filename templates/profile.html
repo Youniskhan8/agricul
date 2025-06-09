@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='home1.css') }}">
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .profile-container {
+            max-width: 800px;
+
+            margin: 80px auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .profile-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #28a745;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .form-row label {
+            width: 30%;
+            font-weight: bold;
+        }
+
+        .form-row input,
+        .form-row select {
+            width: 65%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .form-row input[readonly] {
+            background-color: #f5f5f5;
+        }
+
+        .save-btn {
+            background-color: #28a745;
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar (same as home) -->
+    <nav class="nav-bar">
+        <!-- <div class="nav-left">
+            <h3>AGRI<span style="color:#28a745">FORECAST</span></h3>
+        </div> -->
+        <div class="nav-left">
+            <a href="{{ url_for('home_page') }}" style="text-decoration: none; color: inherit;">
+                <h3>AGRI<span style="color:#28a745">FORECAST</span></h3>
+            </a>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
+        <div class="nav-right">
+            <a href="{{ url_for('home_page') }}" class="nav-link">HOME</a>
+            <a href="{{ url_for('analysis') }}" class="nav-link">PREDICT</a>
+            {% if not session.get('user_id') %}
+            <a href="{{ url_for('login') }}">LOGIN</a>
+            {% else %}
+            <a href="{{ url_for('profile') }}">PROFILE</a>
+            <a href="{{ url_for('sales') }}" class="nav-link">SALES</a>
+            <a href="{{ url_for('logout') }}">LOGOUT</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Profile Form -->
+    <div class="profile-container">
+        <div class="profile-title">Edit Profile</div>
+        <!-- <form method="POST" action="{{ url_for('profile') }}">
+        <div class="form-row">
+            <label for="name">Full Name:</label>
+            <input type="text" name="name" id="name" value="{{ user.name }}" required>
+        </div>
+        <div class="form-row">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" value="{{ user.email }}" readonly>
+        </div>
+        <div class="form-row">
+            <label for="occupation">Occupation:</label>
+            <input type="text" name="occupation" id="occupation" value="{{ user.occupation }}">
+        </div>
+        <div class="form-row">
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender">
+                <option value="Male" {% if user.gender == 'Male' %}selected{% endif %}>Male</option>
+                <option value="Female" {% if user.gender == 'Female' %}selected{% endif %}>Female</option>
+                <option value="Other" {% if user.gender == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <label for="phone">Phone:</label>
+            <input type="text" name="phone" id="phone" value="{{ user.phone }}">
+        </div>
+        <button type="submit" class="save-btn">Save Changes</button>
+    </form> -->
+        <form method="POST" action="{{ url_for('profile') }}">
+            <div class="form-row">
+                <label for="full_name">Full Name:</label>
+                <input type="text" name="full_name" id="full_name" value="{{ user.full_name }}" required>
+            </div>
+            <div class="form-row">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" value="{{ user.email }}" readonly>
+            </div>
+            <div class="form-row">
+                <label for="occupation">Occupation:</label>
+                <input type="text" name="occupation" id="occupation" value="{{ user.occupation }}">
+            </div>
+            <div class="form-row">
+                <label for="gender">Gender:</label>
+                <select name="gender" id="gender">
+                    <option value="">Select</option>
+                    <option value="Male" {% if user.gender=='Male' %}selected{% endif %}>Male</option>
+                    <option value="Female" {% if user.gender=='Female' %}selected{% endif %}>Female</option>
+                    <option value="Other" {% if user.gender=='Other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <label for="phone">Phone:</label>
+                <input type="text" name="phone" id="phone" value="{{ user.phone or '' }}">
+            </div>
+            <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+
+    </div>
+
+    <!-- Footer (same as home) -->
+    <section class="footer">
+        <img src="{{url_for('static',filename='images/footerimg.jpg')}}" alt="">
+        <div class="footer-box">
+            <div class="f-left">
+                <h2>AGRI <span style="color:#28a745">FORECAST</span></h2>
+                <p>A smart solution that brings price clarity to farmers, wholesalers...</p>
+                <i class="fa-solid fa-message"></i> <span class="text">www.ssmcllg.com</span><br>
+                <i class="fa-solid fa-map-pin"></i> <span class="text">SSM College of Engineering,
+                    Parihaspora</span><br>
+                <i class="fa-solid fa-phone"></i> <span class="text">+918004563</span>
+            </div>
+            <div class="f-right">
+                <h2>QUICK LINK</h2>
+                <!-- <a href="{{ url_for('home_page') }}">HOME</a>
+            <a href="{{ url_for('analysis') }}">PREDICT</a>
+            <a href="{{ url_for('login') }}">LOGIN</a> -->
+                <a href="{{ url_for('home_page') }}" class="nav-link">HOME</a>
+                <a href="{{ url_for('analysis') }}" class="nav-link">PREDICT</a>
+                {% if not session.get('user_id') %}
+                <a href="{{ url_for('login') }}">LOGIN</a>
+                {% else %}
+                <a href="{{ url_for('profile') }}">PROFILE</a>
+                <a href="{{ url_for('sales') }}" class="nav-link">SALES</a>
+                <!-- <a href="{{ url_for('logout') }}">LOGOUT</a> -->
+                {% endif %}
+            </div>
+        </div>
+    </section>
+<script>
+    function toggleMenu(){
+        document.querySelector(".nav-right").classList.toggle('show')
+    }
+</script>
+</body>
+
+</html>

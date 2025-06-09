@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <title>Sales Entry</title>
+
+    <!-- Embedded CSS -->
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .sales-form-container {
+            width: 60%;
+            margin: 50px auto;
+            padding: 30px;
+            background: #f0f9f0;
+            border-radius: 10px;
+        }
+
+        .sales-form-container form input,
+        .sales-form-container form label {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .sales-records {
+            width: 90%;
+            margin: 20px auto;
+        }
+       .sales-heading{
+        text-align: center;
+        font-weight: bold;
+        background-color: whitesmoke;
+       }
+
+        .sales-records table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .sales-records th,
+        .sales-records td {
+            padding: 10px;
+            color:#28a745;
+            border: 1px solid #ccc;
+        }
+        @media(max-width:768px){
+             .sales-form-container {
+                width:70%;
+              padding-top: 60px;
+        }
+           .sales-records {
+            width: 90%;
+            margin: 20px auto;
+            overflow-x: auto;
+        }
+
+        .sales-records table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+     
+    </style>
+
+    <!-- Main CSS file (optional, kept for broader styling) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='home1.css') }}">
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <!-- <div class="nav-left">
+            <h3>AGRI<span style="color:#28a745">FORECAST</span></h3>
+        </div> -->
+        <div class="nav-left">
+            <a href="{{ url_for('home_page') }}" style="text-decoration: none; color: inherit;">
+                <h3>AGRI<span style="color:#28a745">FORECAST</span></h3>
+            </a>
+        </div>
+        <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
+        <div class="nav-right">
+            <a href="{{ url_for('home_page') }}" class="nav-link">HOME</a>
+            <a href="{{ url_for('analysis') }}" class="nav-link">PREDICT</a>
+
+            {% if not session.get('user_id') %}
+            <a href="{{ url_for('login') }}">LOGIN</a>
+            {% else %}
+            <a href="{{ url_for('profile') }}">PROFILE</a>
+            <a href="{{ url_for('sales') }}" class="nav-link">SALES</a>
+            <a href="{{ url_for('logout') }}">LOGOUT</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <!-- Sales Form Section -->
+    <section class="sales-form-container">
+        <h2>Record Your Sale</h2>
+        <form method="POST">
+            <label>Commodity:</label>
+            <input type="text" name="commodity" required>
+
+            <label>Variety:</label>
+            <input type="text" name="variety" required>
+
+            <label>Grade:</label>
+            <input type="text" name="grade" required>
+
+            <label>District Name:</label>
+            <input type="text" name="district" required>
+
+            <label>Market Name:</label>
+            <input type="text" name="market" required>
+
+            <label>Price Date:</label>
+            <input type="date" name="price_date" required>
+
+            <label>Price:</label>
+            <input type="number" name="price" step="0.01" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <hr>
+
+    <!-- Sales Records Section -->
+     <h3 class="sales-heading">Your Sales</h3>
+    <section class="sales-records">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Commodity</th>
+                    <th>Variety</th>
+                    <th>Grade</th>
+                    <th>District</th>
+                    <th>Market</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sale in sales %}
+                <tr>
+                    <td>{{ sale.price_date.strftime('%Y-%m-%d') }}</td>
+                    <td>{{ sale.commodity }}</td>
+                    <td>{{ sale.variety }}</td>
+                    <td>{{ sale.grade }}</td>
+                    <td>{{ sale.district }}</td>
+                    <td>{{ sale.market }}</td>
+                    <td>{{ sale.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Footer -->
+    <section class="footer">
+        <img src="{{ url_for('static', filename='images/footerimg.jpg') }}" alt="">
+        <div class="footer-box">
+            <div class="f-left">
+                <h2>AGRI <span style="color:#28a745">FORECAST</span></h2>
+                <p>A smart solution that brings price clarity to farmers, wholesalers, helping them make better,
+                    profit-driven decisions</p>
+                <i class="fa-solid fa-message"></i> <span class="text">www.ssmcllg.com</span> <br>
+                <i class="fa-solid fa-map-pin"></i> <span class="text">ssm cllg of eng, parihaspora</span><br>
+                <i class="fa-solid fa-phone"></i><span class="text">+918004563</span>
+            </div>
+            <div class="f-right">
+                <h2>QUICK LINK</h2>
+                <!-- <a href="{{ url_for('home_page') }}">HOME</a>
+                <a href="{{ url_for('analysis') }}">PREDICT</a>
+                <a href="{{ url_for('login') }}">LOGIN</a> -->
+                <a href="{{ url_for('home_page') }}" class="nav-link">HOME</a>
+                <a href="{{ url_for('analysis') }}" class="nav-link">PREDICT</a>
+                {% if not session.get('user_id') %}
+                <a href="{{ url_for('login') }}">LOGIN</a>
+                {% else %}
+                <a href="{{ url_for('profile') }}">PROFILE</a>
+                <a href="{{ url_for('sales') }}" class="nav-link">SALES</a>
+                <!-- <a href="{{ url_for('logout') }}">LOGOUT</a> -->
+                {% endif %}
+            </div>
+        </div>
+    </section>
+<script>
+    function toggleMenu(){
+        document.querySelector(".nav-right").classList.toggle('show')
+    }
+</script>
+</body>
+
+</html>

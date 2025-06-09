@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login/Signup</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}"/>
+</head>
+<body>
+  <div class="cont">
+    <div class="form sign-in">
+      <h2>Welcome</h2>
+         <!-- Flash message display added here (jinga2) -->
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flash-message" >
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+         <!--  End flash message block -->
+      <form method="POST" action="{{ url_for('login') }}">
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" name="password" required />
+        </label>
+        <!-- <p class="forgot-pass">Forgot password?</p> -->
+         <p class="mobile-signup-toggle" style="cursor: pointer;">Don't have an account? Sign up</p>
+
+        <button type="submit" class="submit">Sign In</button>
+      </form>
+    </div>
+
+    <div class="sub-cont">
+      <div class="img">
+        <div class="img__text m--up">
+          <h3>Don't have an account? Please Sign up!</h3>
+        </div>
+        <div class="img__text m--in">
+          <h3>If you already have an account, just sign in.</h3>
+        </div>
+        <div class="img__btn">
+          <span class="m--up">Sign Up</span>
+          <span class="m--in">Sign In</span>
+        </div>
+      </div>
+
+      <div class="form sign-up">
+        <h2>Create your Account</h2>
+        <form method="POST" action="{{ url_for('signup') }}">
+          <label>
+            <span>Full Name</span>
+            <input type="text" name="full_name" required />
+          </label>
+          <label>
+            <span>City</span>
+            <input type="text" name="city" required />
+          </label>
+          <label>
+            <span>Occupation</span>
+            <input type="text" name="occupation" required />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            <span>Password</span>
+            <input type="password" name="password" required />
+          </label>
+          <button type="submit" class="submit">Sign Up</button>
+        </form>
+        <!-- Mobile toggle button -->
+
+
+      </div>
+    </div>
+
+
+
+    <!-- <div class="mobile-toggle">
+  <button id="mobileToggleBtn">Switch to Sign Up</button>
+</div> -->
+
+
+  </div>
+
+  <script>
+    document.querySelector('.img__btn').addEventListener('click', function () {
+
+      document.querySelector('.cont').classList.toggle('s--signup');
+      
+    });
+
+
+
+  // Mobile toggle from "Don't have an account? Sign up"
+  document.querySelector('.mobile-signup-toggle').addEventListener('click', function () {
+    document.querySelector('.cont').classList.add('s--signup');
+  });
+
+
+ 
+
+
+  </script>
+</body>
+</html>
